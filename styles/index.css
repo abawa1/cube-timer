@@ -12,8 +12,12 @@ h1{
 #timer{
     margin-top:150px;
     text-align:center;
-    font-size:60px;
+    /* width:80%; */
+    font-size:150px;
     font-family:'Courier New', Courier, monospace;
+    /* border: 1px solid black; */
+    margin-right:0px;
+    padding-right:0px;
 }
 
 #btn{
@@ -23,4 +27,14 @@ h1{
     width:5%;
     height:10%;
 }
+
+#list{  
+    margin-top:5%;
+    margin-left:40%;
+    color:black;
+    width:20%;
+    height:20%;
+    font-size:50px;
+}
+
 
