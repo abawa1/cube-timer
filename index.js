@@ -2,9 +2,11 @@ let held = 0;
 let threshold = 500;
 let timer_on = false;
 let time = 0; //all times in ms
+let times = [];
 
 let key_is_down = false;
 let col_changed = false;
+let change_text = true;;
 
 let lightmode = true;
 
@@ -13,6 +15,8 @@ let start_time = Date.now();
 let cur_interval;
 
 let txt = document.getElementById("timer");
+
+let list = document.getElementById("list");
 
 document.addEventListener("keydown",handle_down);
 
@@ -30,6 +34,10 @@ function handle_down(event){
         timer_on = false;
         held = 0;
         console.log("stopped!");
+        times.push(time);
+        let new_time = document.createElement("li");
+        new_time.innerHTML = display_time();
+        list.appendChild(new_time);
     }else if(event.key==" "){
         held = 0;
         start_time = Date.now();
@@ -49,8 +57,13 @@ function handle_up(event){
         console.log("started!");
     }
     held = 0;
-    if(lightmode) txt.style.color = "black";
-    else txt.style.color = "white";
+    if(lightmode) {
+        if(change_text)txt.style.color = "black";
+        else document.body.style.backgroundColor = "white";
+    }else {
+        if(change_text) txt.style.color = "white";
+        else document.body.style.backgroundColor = "black";
+    }
     col_changed = false;
 }
 
@@ -60,7 +73,8 @@ function upd(){
     if(!timer_on && key_is_down){
         // console.log(held,col_changed);
         if(held>=threshold && !col_changed) {
-            txt.style.color = "green";
+            if(change_text)txt.style.color = "green";
+            else document.body.style.backgroundColor = "green";
             col_changed = true;
         }
         held = Date.now()-start_time;
@@ -76,6 +90,7 @@ function display_time(){
     if(rounded%100==0) display+=".00";
     else if(rounded%10==0) display+="0";
     txt.innerHTML = display+" s";
+    return display+"s";
 }
 
 
